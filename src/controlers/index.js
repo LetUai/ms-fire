@@ -1,6 +1,5 @@
 const express  = require('express');
 const router  = express.Router();
-
 const fireAuth = require('../models/register');
 const sigIn = require('../models/sigin');
 const recover  = require('../models/recover');
@@ -9,7 +8,9 @@ router.post('/register', async(req,res)=>{
 try {
     const email  = req.body.email;
     const password = req.body.password;
-    await fireAuth(email,password,res);
+    const name = req.body.name;
+    await fireAuth(email,password,res,name);
+    
 
 } catch (err){
     return res.status(400).send({
