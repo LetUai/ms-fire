@@ -12,8 +12,9 @@
 #
 ``` bash
 {
-    "email" : "johndone@email.com",
-    "password" : "password"
+    "email" : "johndoe@email.com",
+    "password" : "password",
+    "name" : "John doe" 
 }
 ```
 ##### auth / login
@@ -21,7 +22,7 @@
 #
 ``` bash
 {
-    "email" : "johndone@email.com",
+    "email" : "johndoe@email.com",
     "password" : "password"
 }
 ```
@@ -30,6 +31,6 @@
 #
 ``` bash
 {
-    "email" : "johndone@email.com"
+    "email" : "johndoe@email.com"
 }
 ```
