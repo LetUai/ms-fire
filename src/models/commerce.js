@@ -6,6 +6,7 @@ const commerce = new Schema({
     user: { type: String },
     description: { type: String, max: 280 },
     commerceName: { type: String, max: 50 },
+    tags: { type: [String], max: 30 },
     phone: { type: String, max: 20 },
 });
 

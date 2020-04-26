@@ -8,6 +8,11 @@ const profileModel = require('../models/user');
 const commerceModel = require('../models/commerce');
 
 
+/**
+ * Registro no firebase e no banco de dados, 
+ * O registro no banco de dados só é efetivado caso passe pelo firebase primeiro
+ * Nome e Email são propriedades unicas
+ */
 
 router.post('/register', async (req, res) => {
     try {
@@ -25,6 +30,10 @@ router.post('/register', async (req, res) => {
     }
 });
 
+/**
+ * Login de usuário, é importante perceber que o retorno de _id dessa função será usado como parametro para cadastro de comércio.
+ */
+
 router.post('/login', async (req, res) => {
     try {
         const email = req.body.email;
@@ -39,6 +48,9 @@ router.post('/login', async (req, res) => {
     }
 });
 
+/**
+ * Recuperação de senha via email, essa função é 100% controlada pelo firebase
+ */
 
 router.post('/recover', async (req, res) => {
     try {
@@ -52,6 +64,10 @@ router.post('/recover', async (req, res) => {
         });
     }
 });
+
+/**
+ * Registrando um novo comércio tendo como base o _id fornecido no login 
+ */
 
 router.post('/commerce/register', async (req, res) => {
     try {
@@ -72,9 +88,96 @@ router.post('/commerce/register', async (req, res) => {
     }
 });
 
+/**
+ * Listando os comércios
+ */
 
+router.get('/commerce/list', async (req, res) => {
+    const data = await commerceModel.find();
+    res.json(data);
+});
 
+/**
+ * Listando preferencias de usuários
+ */
 
+router.post('/user/favorites', async (req, res) => {
+    const user = req.body.user;
+    const valid = await profileModel.find({ _id: user })
+    if (valid) {
+        res.json(valid[0].favorites)
+    } else {
+        res.json({})
+    }
+});
+
+/**
+ * Updade de informações baseado em id
+ */
+
+router.post('/user/update', async (req, res) => {
+
+    const {
+        _id,
+        email,
+        password,
+        name,
+        favorites } = req.body;
+
+    const newData = await profileModel.update({ _id }, { email, password, name, favorites });
+    if (newData) {
+        res.json(newData);
+    } else {
+        res.sendStatus(401).json({
+            status: "error"
+        });
+    }
+});
+
+/**
+ * Update de favoritos 
+ * nota: o array todo será atualizado!
+ */
+router.post('/user/update/favorite', async (req, res) => {
+    const {
+        _id,
+        favorites } = req.body;
+
+    const newData = await profileModel.update({ _id }, { favorites });
+    if (newData) {
+        res.json(newData);
+    } else {
+        res.sendStatus(401).json({
+            status: "error"
+        });
+    }
+});
+
+/**
+ * Update de Comercio
+ */
+
+router.post('/commerce/update', async (req, res) => {
+    const {
+        user,
+        description,
+        commerceName,
+        tags,
+        phone
+    } = req.body
+
+    const result = await commerceModel.update({ user }, { description, commerceName, tags, phone });
+    if (result) {
+        res.json(result)
+    } else {
+        res.sendStatus(401).json(
+            {
+                status: "error"
+            }
+        )
+    }
+
+});
 
 module.exports = app => app.use('/auth', router);
 
