@@ -1,5 +1,5 @@
 {
-  "name": "firebase_auth",
+  "name": "smalltrade",
   "version": "1.0.0",
   "description": "micro serviço de autenticação com firebase ",
   "main": "index.js",
