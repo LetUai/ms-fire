@@ -92,8 +92,8 @@ router.post('/commerce/register', async (req, res) => {
  * Listando os comércios
  */
 
-router.get('/commerce/list', async (req, res) => {
-    const data = await commerceModel.find();
+router.get('/commerce/list', (req, res) => {
+    const data = commerceModel.find();
     res.json(data);
 });
 
