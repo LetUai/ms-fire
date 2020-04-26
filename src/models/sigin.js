@@ -6,12 +6,14 @@ function fireSingIn(email, password, res) {
   if (email) {
     db.auth().signInWithEmailAndPassword(email, password)
       .then(async function (result) {
+        console.log(result)
+        console.log('Entrou no then')
         const auth = await profileModel.find({ email });
         res.json(auth);
 
       }).catch(function (error) {
 
-        res.json({ status: 'error' });
+        res.json({ status: error });
 
       });
   } else {

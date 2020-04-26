@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
     try {
         const email = req.body.email;
         const password = req.body.password;
-        await sigIn(email, password, res);
+        sigIn(email, password, res);
 
     } catch (err) {
         return res.status(400).send({
@@ -71,6 +71,8 @@ router.post('/commerce/register', async (req, res) => {
         });
     }
 });
+
+
 
 
 
