@@ -71,7 +71,7 @@ router.post('/recover', async (req, res) => {
 
 router.post('/commerce/register', async (req, res) => {
     try {
-        const { user, commerceName, description, phone, tags } = req.body
+        const { user, commerceName, description, phone, tags, location } = req.body
         const auth = await profileModel.find({ user });
         if (auth) {
             const data = await commerceModel.create({ user, commerceName, description, phone, tags, location });
