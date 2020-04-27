@@ -90,7 +90,14 @@
 	"description" : "",
 	"phone": "",
 	"commerceName" : "",
-    "tags": []
+    "tags": [],
+    "location": {
+    "type" : "Point",
+    "coordinates" : [
+    -16.7026906,
+    -43.8791442
+   ]
+}
 }
 ```
 
@@ -106,6 +113,13 @@
 	"description" : "",
 	"phone": "",
 	"commerceName" : "",
-    "tags": []
+    "tags": [],
+    "location": {
+    "type" : "Point",
+    "coordinates" : [
+    -16.7026906,
+    -43.8791442
+  ]
+}
 }
 ```

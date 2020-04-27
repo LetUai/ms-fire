@@ -71,10 +71,10 @@ router.post('/recover', async (req, res) => {
 
 router.post('/commerce/register', async (req, res) => {
     try {
-        const { user, commerceName, description, phone } = req.body
+        const { user, commerceName, description, phone, tags } = req.body
         const auth = await profileModel.find({ user });
         if (auth) {
-            const data = await commerceModel.create({ user, commerceName, description, phone });
+            const data = await commerceModel.create({ user, commerceName, description, phone, tags, location });
             const commerce = await profileModel.findById(user);
             console.log(commerce);
             return res.status(200).json(data);
@@ -163,10 +163,11 @@ router.post('/commerce/update', async (req, res) => {
         description,
         commerceName,
         tags,
-        phone
+        phone,
+        location
     } = req.body
 
-    const result = await commerceModel.update({ user }, { description, commerceName, tags, phone });
+    const result = await commerceModel.update({ user }, { description, commerceName, tags, phone, location });
     if (result) {
         res.json(result)
     } else {
